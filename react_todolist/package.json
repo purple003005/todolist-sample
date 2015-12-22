@@ -1,0 +1,23 @@
+{
+  "name": "just_want_to_try_react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "live-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blackbing/just_want_to_try_react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blackbing/just_want_to_try_react/issues"
+  },
+  "homepage": "https://github.com/blackbing/just_want_to_try_react#readme",
+  "dependencies": {
+    "live-server": "^0.9.0"
+  }
+}
