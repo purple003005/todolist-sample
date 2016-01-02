@@ -1,6 +1,14 @@
 var App = React.createClass({
-    getInitialState:  function(){
-        return {todoList : [{val:'123',onEdit:false}]}
+    getInitialState: function(){
+        //localStorage.clear();
+        if (localStorage.getItem("todos") === null) {
+            console.log("localhost= null");
+            var defalt = [{val:'123',onEdit:false}];
+            localStorage.setItem('todos',JSON.stringify(defalt));
+        }
+        var temp =JSON.parse(localStorage.getItem('todos'));
+        console.log('getInitialState()');
+        return {'todoList':temp};
     },
     add:function(e){
         e.preventDefault();
@@ -51,16 +59,18 @@ var App = React.createClass({
         var temp =JSON.parse(localStorage.getItem("todos"));
         var newVal = e.target.value;
         temp[index].val= newVal;
-        this.setState({ 'todoLsit' : temp})
+        this.setState({ 'todoList' : temp})
         localStorage.setItem("todos",JSON.stringify(temp));
+        console.log('onChange()');
+        //debugger;
 
     },
     componentWillMount: function() {
-        console.log('componnentWillMount()');
+        //console.log('componnentWillMount()');
 
     },
     componentDidMount: function() {
-        console.log('componentDidMound');
+        //console.log('componentDidMound');
     },
     render: function() {
         console.log('render');
@@ -68,7 +78,7 @@ var App = React.createClass({
         var empty = this.state.emptyInput;
         var inputCss='spanteam';
         if(empty) inputCss = 'empty'
-        var tmp =JSON.parse(localStorage.getItem("todos"));
+        var tmp = this.state.todoList;
         var list = tmp.map(function(val, idx){
             var classes = 'liteam';
             if (val.onEdit) classes += ' edit';
@@ -82,14 +92,12 @@ var App = React.createClass({
                     <button className='cancelbtn' onClick={this.cancel.bind(this,idx)}>cancel</button></li>
             );
         }, this);
-        //console.log(list)
         return (
             <div>
-                <form onSumit={this.add}>
-                    <input className={inputCss} ref="add" type="text" onKeyDown={this.keyEnter}/><button className='addbtn' onClick={this.add} >add</button>
+                <form onSubmit={this.add}>
+                    <input className={inputCss} ref="add" type="text" onKeyDown={this.keyEnter} placeholder="write something..."/><button className='addbtn' onClick={this.add} >add</button>
                 </form>
                 <ul>
-
                     {list}
                 </ul>
             </div>
